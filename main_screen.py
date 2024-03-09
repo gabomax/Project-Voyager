@@ -19,6 +19,7 @@ class State() :
 
     def __init__(self) :
 
+        self.st0 = pygame.image.load('assets/state 0.png')
         self.st1 = pygame.image.load('assets/state 1.png')
         self.st2 = pygame.image.load('assets/state 2.png')
         self.st3 = pygame.image.load('assets/state 3.png')
@@ -27,8 +28,8 @@ class State() :
         self.st6 = pygame.image.load('assets/state 6.png')
         self.st7 = pygame.image.load('assets/state 7.png')
 
-        self.state_n = 1
-        self.state = self.st1
+        self.state_n = 0
+        self.state = self.st0
 
     def reset(self) :
         self.state = self.st1
@@ -37,7 +38,9 @@ class State() :
     def change_state(self) :
         self.state_n += 1
 
-        if self.state_n == 1 :
+        if self.state_n == 0 :
+            self.state = self.st1
+        elif self.state_n == 1 :
             self.state = self.st1
         elif self.state_n == 2 :
             self.state = self.st2
