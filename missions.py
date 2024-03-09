@@ -19,15 +19,15 @@ class Missions(pygame.sprite.Sprite) :
         
         self.mission1 = False
         self.mission1_money = 100
-        self.mission1_WIDTH, self.mission1_HEIGHT = properties.WIDTH // 8 * 7 - 100, properties.HEIGHT // 8 * 5
+        self.mission1_WIDTH, self.mission1_HEIGHT = properties.WIDTH // 8 * 7 - 100, properties.HEIGHT // 8 * 5 + 27
         
         self.mission2 = False
         self.mission2_fuel = 1000
-        self.mission2_WIDTH, self.mission2_HEIGHT = properties.WIDTH // 8 * 7 - 100, properties.HEIGHT // 8 * 6
+        self.mission2_WIDTH, self.mission2_HEIGHT = properties.WIDTH // 8 * 7 - 100, properties.HEIGHT // 8 * 6 + 15
         
         self.mission3 = False
         self.mission3_mine = 50
-        self.mission3_WIDTH, self.mission3_HEIGHT = properties.WIDTH // 8 * 7 - 100, properties.HEIGHT // 8 * 7
+        self.mission3_WIDTH, self.mission3_HEIGHT = properties.WIDTH // 8 * 7 - 100, properties.HEIGHT // 8 * 7 
             
     def show_missions(self) :
         properties.draw_text(f"Obtain {self.mission1_money} money", properties.BLACK, self.mission1_WIDTH, self.mission1_HEIGHT)
@@ -38,20 +38,20 @@ class Missions(pygame.sprite.Sprite) :
         if self.state.state_n < 7 :
             if self.inventory.all_money >= self.mission1_money :
                 self.mission1 = False
-                self.mission1_money += 1000 * ((self.progress.progress + 1) * 2)
-                self.inventory.add_piece()
+                self.mission1_money += 300 * ((self.progress.progress + 1) * 2)
+                self.inventory.add_token()
                 properties.draw_text(f"Obtain {self.mission1_money} money", properties.BLACK, self.mission1_WIDTH, self.mission1_HEIGHT)
             
             if self.inventory.all_fuel >= self.mission2_fuel :
                 self.mission2 = False
                 self.mission2_fuel += 1000 * ((self.progress.progress + 1) * 2)
-                self.inventory.add_piece()
+                self.inventory.add_token()
                 properties.draw_text(f"Obtain {self.mission2_fuel} fuel", properties.BLACK, self.mission2_WIDTH, self.mission2_HEIGHT)
             
             if self.inventory.mine >= self.mission3_mine :
                 self.mission3 = False
                 self.mission3_mine += 10 * ((self.progress.progress + 1) * 2)
-                self.inventory.add_piece()
+                self.inventory.add_token()
                 properties.draw_text(f"Have {self.mission3_mine} mine", properties.BLACK, self.mission3_WIDTH, self.mission3_HEIGHT)
         else :
             self.progress.add_progress()

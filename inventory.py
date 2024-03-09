@@ -17,20 +17,24 @@ class Inventory(pygame.sprite.Sprite) :
         
         self.money = 0
         self.all_money = 0
-        self.money_WIDTH, self.money_HEIGHT = properties.WIDTH // 8 * 7 - 40, properties.HEIGHT // 16 * 2
+        self.money_WIDTH, self.money_HEIGHT = properties.WIDTH // 8 * 7 - 128, properties.HEIGHT // 16 * 2 + 578
+        
+        self.token = 0
+        self.token_WIDTH, self.token_HEIGHT = properties.WIDTH // 8 * 7 - 128, properties.HEIGHT // 16 * 2 + 597
         
         self.fuel = 0
         self.all_fuel = 0
         self.fuel_price = 10
-        self.fuel_WIDTH, self.fuel_HEIGHT = properties.WIDTH // 8 * 7 - 40, properties.HEIGHT // 8 * 2.5
+        self.fuel_WIDTH, self.fuel_HEIGHT = properties.WIDTH // 8 * 7 - 70, properties.HEIGHT // 8 * 2.5 - 30
         
         self.mine = 1
         self.mine_fuel_price = 300
         self.mine_money_price = 20
-        self.mine_WIDTH, self.mine_HEIGHT = properties.WIDTH // 8 * 7 - 40, properties.HEIGHT // 8 * 3
+        self.mine_WIDTH, self.mine_HEIGHT = properties.WIDTH // 8 * 7 - 70, properties.HEIGHT // 8 * 3 - 20
         
         self.pieces = 0
-        self.pieces_WIDTH, self.pieces_HEIGHT = properties.WIDTH // 8 * 7 - 40, properties.HEIGHT // 8 * 3.5
+        self.pieces_price = 10
+        self.pieces_WIDTH, self.pieces_HEIGHT = properties.WIDTH // 8 * 7 - 70, properties.HEIGHT // 8 * 3.5 - 10
         
     def add_fuel(self, amount) :
         if self.money >= self.fuel_price :
@@ -63,13 +67,22 @@ class Inventory(pygame.sprite.Sprite) :
     def remove_money(self, amount) :
         self.money -= amount
         
+    def add_token(self) :
+        self.token += 1
+        
     def add_piece(self) :
-        if self.state.state_n < 7 :
+        if self.token >= self.pieces_price :
             self.pieces += 1
+            self.token -= self.pieces_price
+            self.change_piece_price()
             self.state.change_state()
+        
+    def change_piece_price(self) :
+        self.pieces_price += 1
         
     def draw_inventory(self) :
         properties.draw_text(f"money : {self.money}", properties.BLACK, self.money_WIDTH, self.money_HEIGHT)
+        properties.draw_text(f"token : {self.token}", properties.BLACK, self.token_WIDTH, self.token_HEIGHT)
         properties.draw_text(f"fuel : {self.fuel}", properties.BLACK, self.fuel_WIDTH, self.fuel_HEIGHT)
         properties.draw_text(f"mine : {self.mine}", properties.BLACK, self.mine_WIDTH, self.mine_HEIGHT)
         properties.draw_text(f"pièces : {self.pieces}, {self.state.state_n}", properties.BLACK, self.pieces_WIDTH, self.pieces_HEIGHT)

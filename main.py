@@ -18,25 +18,19 @@ pygame.init()
 # Initialiser l'écran
 mainScreen = MainScreen(state)
 screenState = ScreenState()
-shop = Shop(properties.manager)
 map = Map()
 gameProgress = GameProgress()
 inventory = Inventory(state)
+shop = Shop(properties.manager, gameProgress)
 missions = Missions(state, inventory, gameProgress)
 
 properties.add_sprites(mainScreen)
 properties.add_sprites(gameProgress)
-properties.add_sprites(shop)
-properties.add_sprites(map)
-properties.add_sprites(screenState)
-properties.add_sprites(inventory)
-properties.add_sprites(missions)
-
-properties.add_item(shop.fuel)
-properties.add_item(shop.mine)
 
 money_time = time.time()
 clock = pygame.time.Clock()
+
+screen = pygame.image.load('assets/screen.png')
 
 running = True
 
@@ -57,8 +51,9 @@ while running :
     properties.manager.update(time_delta)
     mainScreen.image = state.state
         
-    properties.screen.fill(properties.TURQUOISE)
+    properties.screen.blit(screen, (0, 0))
            
+    gameProgress.set_width()
     properties.draw_sprites()
     
     inventory.draw_inventory()
