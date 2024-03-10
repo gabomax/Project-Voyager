@@ -14,8 +14,6 @@ class Shop(pygame.sprite.Sprite) :
         self.rect = self.image.get_rect()
         self.rect.center = (properties.WIDTH // 8, properties.HEIGHT // 8 * 2.5)
         
-        self.progress = progress
-        
         self.fuel_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((properties.WIDTH // 16 - self.WIDTH // 6 // 2 - 22, properties.HEIGHT // 16 * 3 - self.HEIGHT // 6 // 2 + 10), (self.WIDTH // 6, self.HEIGHT // 6)),
                                              text='',
                                              manager=manager)

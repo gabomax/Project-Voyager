@@ -16,8 +16,8 @@ state = State()
 pygame.init()
 
 # Initialiser l'écran
-mainScreen = MainScreen(state)
-screenState = ScreenState()
+screenState = ScreenState(properties.manager)
+mainScreen = MainScreen(state, screenState)
 map = Map()
 gameProgress = GameProgress()
 inventory = Inventory(state)
@@ -34,22 +34,30 @@ screen = pygame.image.load('assets/screen.png')
 
 running = True
 
+missions.load()
+inventory.load()
+gameProgress.load()
+
 while running :
     inventory.pieces = state.state_n
     time_delta = clock.tick(60)/1000.0
     for event in pygame.event.get() :           
         shop.buy(inventory, event)
+        screenState.check_button(event)
         properties.manager.process_events(event)
         
         if event.type == pygame.QUIT :
             running = False
+            missions.save()
+            inventory.save()
+            gameProgress.save()
             
     if time.time() - money_time >= 3 :
         inventory.add_money(inventory.mine * 5)
         money_time = time.time()
         
     properties.manager.update(time_delta)
-    mainScreen.image = state.state
+    mainScreen.set_image()
         
     properties.screen.blit(screen, (0, 0))
            
@@ -63,5 +71,6 @@ while running :
     missions.check_missions()
     missions.show_missions()
     properties.manager.draw_ui(properties.screen)
+    screenState.set_image()
     
     pygame.display.flip()

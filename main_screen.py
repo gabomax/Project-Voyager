@@ -1,19 +1,29 @@
 import pygame
+import pickle
 from properties import Properties
 
 properties = Properties()
 
 class MainScreen(pygame.sprite.Sprite) :
     
-    def __init__(self, state) :
+    def __init__(self, state, screen) :
         super().__init__()
         
         self.state = state
+        self.screen1 = self.state.state
+        self.screen2 = pygame.image.load('assets/abilities_tree.png')
+        self.screen = screen
         
         self.WIDTH, self.HEIGHT = properties.WIDTH // 8 * 4, properties.HEIGHT // 8 * 5
-        self.image = self.state.state
+        self.image = self.screen1
         self.rect = self.image.get_rect()
         self.rect.center = (properties.WIDTH // 8 * 4, properties.HEIGHT // 8 * 2.5 + (properties.HEIGHT //8))
+        
+    def set_image(self) :
+        if self.screen.state == 1 :
+            self.image = self.state.state
+        elif self.screen.state == 2 :
+            self.image = self.screen2
     
 class State() :
 

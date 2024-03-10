@@ -1,4 +1,5 @@
 import pygame
+import pickle
 from properties import Properties
 
 properties = Properties()
@@ -25,4 +26,16 @@ class GameProgress(pygame.sprite.Sprite) :
         self.progress += 1
         
     def draw_progress(self) :
-        properties.draw_text(f"Progress {self.progress}%", properties.BLACK, properties.WIDTH // 8 * 4 - 70, properties.HEIGHT // 16)
+        properties.draw_text(f"Progress {self.progress}%", properties.BLACK, properties.WIDTH // 8 * 4 + 10, properties.HEIGHT // 16 + 20)
+        
+    def save(self) :
+        with open('progress.pickle', 'wb') as f:
+            pickle.dump(self.progress, f)
+            
+    def load(self):
+        try:
+            with open('progress.pickle', 'rb') as f:
+                self.progress = pickle.load(f)
+        except FileNotFoundError:
+            # Si le fichier n'existe pas encore, retourne 0 comme argent par défaut
+            self.progress = 0
