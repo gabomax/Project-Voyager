@@ -21,7 +21,7 @@ class Properties :
         self.PINK = (255, 0, 255)
         
         self.manager = pygame_gui.UIManager((self.WIDTH, self.HEIGHT))
-        self.screen_ui = pygame_gui.UIManager((self.WIDTH, self.HEIGHT))
+        self.alpha0 = pygame_gui.UIManager((self.WIDTH, self.HEIGHT), 'theme.json')
         
         self.all_sprites = pygame.sprite.Group()
         self.item = pygame.sprite.Group()

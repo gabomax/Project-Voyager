@@ -18,7 +18,7 @@ class ScreenState(pygame.sprite.Sprite) :
         
         self.abilities_button = pygame_gui.elements.UIButton(
                                              relative_rect=pygame.Rect((properties.WIDTH // 8 * 4, properties.HEIGHT // 8 * 7 - self.HEIGHT // 2), (self.WIDTH // 2, self.HEIGHT // 2)),
-                                             text='hello',
+                                             text='',
                                              manager=manager)
         
         self.rocket_button = pygame_gui.elements.UIButton(
@@ -26,19 +26,12 @@ class ScreenState(pygame.sprite.Sprite) :
                                              text='',
                                              manager=manager)
         
-        self.rocket_button.image = pygame.image.load('assets/void.png')
-        self.abilities_button.image = pygame.image.load('assets/void.png')
-        
     def check_button(self, event) :
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.abilities_button :
                 self.change_state(2)
             elif event.ui_element == self.rocket_button :
                 self.change_state(1)
-                
-    def set_image(self) :
-        self.rocket_button.image = pygame.image.load('assets/void.png')
-        self.abilities_button.image = pygame.image.load('assets/void.png')
         
     def change_state(self, state) :
         self.state = state

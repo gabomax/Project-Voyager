@@ -16,7 +16,7 @@ state = State()
 pygame.init()
 
 # Initialiser l'écran
-screenState = ScreenState(properties.manager)
+screenState = ScreenState(properties.alpha0)
 mainScreen = MainScreen(state, screenState)
 map = Map()
 gameProgress = GameProgress()
@@ -45,6 +45,7 @@ while running :
         shop.buy(inventory, event)
         screenState.check_button(event)
         properties.manager.process_events(event)
+        properties.alpha0.process_events(event)
         
         if event.type == pygame.QUIT :
             running = False
@@ -57,6 +58,7 @@ while running :
         money_time = time.time()
         
     properties.manager.update(time_delta)
+    properties.alpha0.update(time_delta)
     mainScreen.set_image()
         
     properties.screen.blit(screen, (0, 0))
@@ -71,6 +73,6 @@ while running :
     missions.check_missions()
     missions.show_missions()
     properties.manager.draw_ui(properties.screen)
-    screenState.set_image()
+    properties.alpha0.draw_ui(properties.screen)
     
     pygame.display.flip()
